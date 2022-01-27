@@ -35,10 +35,36 @@ const useTransactionsYear = (title, year) => {
   const rightTransactions = transactions.filter(
     (t) => t.type === title && new Date(t.date).getFullYear() === year
   );
+
+  const rightExpenseTransactions = transactions.filter(
+    (t) => t.type === "Expense" && new Date(t.date).getFullYear() === year
+  );
+
+  const rightIncomeTransactions = transactions.filter(
+    (t) => t.type === "Income" && new Date(t.date).getFullYear() === year
+  );
   const total = rightTransactions.reduce(
     (acc, currVal) => (acc += currVal.amount),
     0
   );
+
+  const totalExpense = rightExpenseTransactions.reduce(
+    (acc, currVal) => (acc += currVal.amount),
+    0
+  );
+  const TotalIncome = rightIncomeTransactions.reduce(
+    (acc, currVal) => (acc += currVal.amount),
+    0
+  );
+
+  const averageIncome = TotalIncome / rightIncomeTransactions.length;
+  var averageExpense;
+  if (rightExpenseTransactions.length !== 0) {
+    const ae = totalExpense / rightExpenseTransactions.length;
+    averageExpense = ae.toFixed(2);
+  } else {
+    averageExpense = "0";
+  }
   const categories = title === "Income" ? incomeCategories : expenseCategories;
 
   rightTransactions.forEach((t) => {
@@ -78,6 +104,7 @@ const useTransactionsYear = (title, year) => {
     balance,
     chartData,
     transactionsYear2,
+    averageExpense,
   };
 };
 

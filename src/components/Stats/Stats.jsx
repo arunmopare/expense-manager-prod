@@ -29,7 +29,10 @@ const Stats = () => {
   const [year, setYear] = useState(2010);
 
   const classes = useStyles();
-  const { balance, yearsArray } = useTransactionsYear("Income", year);
+  const { balance, yearsArray, averageExpense } = useTransactionsYear(
+    "Income",
+    year
+  );
 
   const {} = useContext(ExpenseTrackerContext);
   return (
@@ -54,7 +57,10 @@ const Stats = () => {
         </div>
         <div className="col-md-6 mt-5">
           <h3>
-            Total Balance in Hand for {year} is ₹{balance}
+            Total Balance in Hand for {year} is ₹{balance}.
+          </h3>
+          <h3>
+            Average Expense for year {year} is ₹{averageExpense}.
           </h3>
         </div>
       </div>
